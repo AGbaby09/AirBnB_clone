@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 
 """
-Initialize the package to generate a distinct FileStorage instance tailored for the application's needs.
+INitalize package
+to create a unique FileStorage instance
+for the application
 """
 from models.engine.file_storage import FileStorage
 
