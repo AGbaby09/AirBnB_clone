@@ -4,16 +4,17 @@ import uuid
 from datetime import datetime
 import models
 
+
 class BaseModel:
-    """BaseModel: Manages and creates instances."""
+    """BaseModel class for creating and managing instances.
+    """
     TIME_FORMAT = "%Y-%m-%dT%H:%M:%S.%f"
 
     def __init__(self, *args, **kwargs):
-        """Initialize BaseModel instance.
-        
+        """Initialize a new instance of BaseModel.
         Args:
-            - *args: Not utilized
-            - **kwargs: Key-value arguments dictionary
+            - *args: will not be used
+            - **kwargs: a dictionary of key-values arguments
         """
         if kwargs:
             for key, value in kwargs.items():
@@ -25,9 +26,10 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            # models.storage.new(self)
 
     def __str__(self) -> str:
-        """String representation of the instance."""
+        """Return a string representation of the instance."""
         class_name = self.__class__.__name__
         return "[{}] ({}) {}".format(class_name, self.id, self.__dict__)
 
@@ -38,7 +40,7 @@ class BaseModel:
         models.storage.new(self)
 
     def to_dict(self) -> dict:
-        """Dictionary representation of instance attributes."""
+        """Return a dictionary of instance attributes."""
         excluded = ['name', 'my_number']
         result = {k: v for k, v in self.__dict__.items() if k not in excluded}
         result['__class__'] = self.__class__.__name__
@@ -48,4 +50,3 @@ class BaseModel:
                 result[k] = v.isoformat()
 
         return result
-
